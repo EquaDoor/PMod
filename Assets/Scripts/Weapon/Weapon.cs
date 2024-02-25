@@ -5,24 +5,27 @@ using UnityEngine;
 public abstract class Weapon : MonoBehaviour
 {
     [Header("Weapon")]
-    [SerializeField] private float damage; // урон
-    [SerializeField] private float fireRate; // скорострельность
-    [SerializeField] private int currentAmmo; // сейчас патронов
-    [SerializeField] private int maxAmmo; // макс патронов
-    [SerializeField] private bool isAuto; // автоматическое ли оружие
-    private Camera cam; // камера
+    public float damage; // урон
+    public float fireRate; // скорострельность
+    public float rateTimer; // таймер выстрелов
+    public int currentAmmo; // сейчас патронов
+    public int maxAmmo; // макс патронов
+    public bool isAuto; // автоматическое ли оружие
+    public Camera cam; // камера
 
     [Header("Weapon Effects")]
-    [SerializeField] private ParticleSystem bulletImpact; // эффект попадания
-    [SerializeField] private ParticleSystem muzzleFlash; // дульное пламя
-    [SerializeField] private AudioSource shootSource; // звук выстрела
-    private Animator anim; // аниматор оружия
+    public ParticleSystem bulletImpact; // эффект попадания
+    public ParticleSystem muzzleFlash; // дульное пламя
+    public AudioSource shootSource; // звук выстрела
+    public Animator anim; // аниматор оружия
 
 
     public virtual void Init(Camera _cam, Animator _anim)
     {
         this.cam = _cam;
         this.anim = _anim;
+
+        currentAmmo = maxAmmo;
     }
 
     public virtual void Shoot()
@@ -31,12 +34,14 @@ public abstract class Weapon : MonoBehaviour
 
         currentAmmo--; // уменьшаем счётчик патронов
 
+        rateTimer = fireRate;
+
         if(Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, Mathf.Infinity))
         {
-            // if(hit.transform.TryGetComponent(out Damageable damageable))
-            // {
-            //     damageable.TakeDamage(damage);
-            // }
+            if(hit.transform.TryGetComponent(out Damageable damageable))
+            {
+                damageable.TakeDamage(damage);
+            }
 
             Instantiate(bulletImpact, hit.point, Quaternion.LookRotation(hit.normal));
             muzzleFlash.Play();
@@ -46,7 +51,7 @@ public abstract class Weapon : MonoBehaviour
 
     public virtual void Reload()
     {
-        anim.SetTrigger("Reload");
+        // anim.SetTrigger("Reload");
     }
 
 }
