@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Rifle : Weapon
 {
+    private void Start() {
+        currentAmmo = maxAmmo;
+    }
+
     private void Update() {
         if(rateTimer > 0) rateTimer -= Time.deltaTime;
 
@@ -19,12 +23,5 @@ public class Rifle : Weapon
     public override void Reload()
     {
         base.Reload();
-
-        Invoke(nameof(SetAmmo),.5f);
-    }
-
-    private void SetAmmo()
-    {
-        currentAmmo = maxAmmo;
     }
 }

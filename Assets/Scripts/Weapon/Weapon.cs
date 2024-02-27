@@ -5,12 +5,13 @@ using UnityEngine;
 public abstract class Weapon : MonoBehaviour
 {
     [Header("Weapon")]
-    public float damage; // урон
-    public float fireRate; // скорострельность
+    public float damage = 5; // урон
+    public float fireRate = 0.25f; // скорострельность
     public float rateTimer; // таймер выстрелов
+    public float reloadTime = 0.5f; // время перезарядки
     public int currentAmmo; // сейчас патронов
-    public int maxAmmo; // макс патронов
-    public bool isAuto; // автоматическое ли оружие
+    public int maxAmmo = 30; // макс патронов
+    public bool isAuto = true; // автоматическое ли оружие
     public Camera cam; // камера
 
     [Header("Weapon Effects")]
@@ -52,6 +53,12 @@ public abstract class Weapon : MonoBehaviour
     public virtual void Reload()
     {
         // anim.SetTrigger("Reload");
+        Invoke(nameof(SetAmmo), reloadTime);
+    }
+
+    private void SetAmmo()
+    {
+        currentAmmo = maxAmmo;
     }
 
 }
