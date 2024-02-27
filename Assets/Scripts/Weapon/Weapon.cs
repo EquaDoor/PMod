@@ -45,9 +45,9 @@ public abstract class Weapon : MonoBehaviour
             }
 
             Instantiate(bulletImpact, hit.point, Quaternion.LookRotation(hit.normal));
-            muzzleFlash.Play();
             Debug.DrawLine(cam.transform.position,hit.point, Color.red, 1f);
         }
+        muzzleFlash.Play();
     }
 
     public virtual void Reload()
