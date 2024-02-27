@@ -41,7 +41,12 @@ public abstract class Weapon : MonoBehaviour
         {
             if(hit.transform.TryGetComponent(out Damageable damageable))
             {
-                damageable.TakeDamage(damage);
+                damageable.TakeDamage(damage); // нанесение урона если возможно
+            }
+
+            if(hit.transform.TryGetComponent(out Rigidbody rb))
+            {
+                rb.AddForce(-hit.normal * 30f); // сила отталкивания
             }
 
             Instantiate(bulletImpact, hit.point, Quaternion.LookRotation(hit.normal));
