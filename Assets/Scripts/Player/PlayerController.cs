@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Damageable
 {
 	private CharacterController controller;
 	[SerializeField] private float speed = 12f;
@@ -16,7 +16,8 @@ public class PlayerController : MonoBehaviour
 
 	private void Start()
     {
-        controller = GetComponent<CharacterController>(); // создание ссылки на контроллер при старте игры автоматически
+        // создание ссылки на контроллер при старте игры автоматически
+        controller = GetComponent<CharacterController>(); 
     }
 
     private void Update()
@@ -37,4 +38,7 @@ public class PlayerController : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
+
+    public override void TakeDamage(float _damage) => base.TakeDamage(_damage);
+    public override void Die() => UnityEngine.SceneManagement.SceneManager.LoadScene(0);
 }

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
-{
+{    
+
     [Header("Weapon")]
     public float damage = 5; // урон
     public float fireRate = 0.25f; // скорострельность
@@ -39,6 +40,7 @@ public abstract class Weapon : MonoBehaviour
 
         if(Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, Mathf.Infinity))
         {
+
             if(hit.transform.TryGetComponent(out Damageable damageable))
             {
                 damageable.TakeDamage(damage); // нанесение урона если возможно
@@ -46,7 +48,7 @@ public abstract class Weapon : MonoBehaviour
 
             if(hit.transform.TryGetComponent(out Rigidbody rb))
             {
-                rb.AddForce(-hit.normal * 30f); // сила отталкивания
+                rb.AddForce(-hit.normal * 300f); // сила отталкивания
             }
 
             Instantiate(bulletImpact, hit.point, Quaternion.LookRotation(hit.normal));

@@ -43,8 +43,15 @@ public class WeaponHolder : MonoBehaviour
             weapons[currentIndex].rateTimer -= Time.deltaTime;
 
         // стрельба
-        if(Input.GetKey(KeyCode.Mouse0) && weapons[currentIndex].rateTimer <= 0) 
-            weapons[currentIndex].Shoot();
+        if(weapons[currentIndex].isAuto){
+            if(Input.GetKey(KeyCode.Mouse0) && weapons[currentIndex].rateTimer <= 0) 
+                weapons[currentIndex].Shoot();
+        }
+        else
+        {
+            if(Input.GetKeyDown(KeyCode.Mouse0) && weapons[currentIndex].rateTimer <= 0) 
+                weapons[currentIndex].Shoot();
+        }
 
         // перезарядка
         if(Input.GetKeyDown(KeyCode.R) && weapons[currentIndex].currentAmmo < weapons[currentIndex].maxAmmo) 

@@ -19,7 +19,7 @@ public abstract class Damageable : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void Start()
+    private void Awake()
     {
         currentHealth = maxHealth;
     }
