@@ -59,7 +59,7 @@ public abstract class Weapon : MonoBehaviour
 
     public virtual void Reload()
     {
-        // anim.SetTrigger("Reload");
+        anim.SetTrigger("Reload");
         Invoke(nameof(SetAmmo), reloadTime);
     }
 
