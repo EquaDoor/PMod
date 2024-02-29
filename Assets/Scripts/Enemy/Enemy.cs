@@ -55,7 +55,10 @@ public class Enemy : Damageable
 
     private void Attack(){
         if(attackTimer<=0)
+        {
             target.TakeDamage(damage);
+            attackTimer = attackCd;
+        }
     }
 
     private void Chase(){

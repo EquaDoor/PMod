@@ -51,9 +51,11 @@ public abstract class Weapon : MonoBehaviour
                 rb.AddForce(-hit.normal * 300f); // сила отталкивания
             }
 
+
             Instantiate(bulletImpact, hit.point, Quaternion.LookRotation(hit.normal));
             Debug.DrawLine(cam.transform.position,hit.point, Color.red, 1f);
         }
+        if(shootSource) shootSource.Play();
         muzzleFlash.Play();
     }
 
